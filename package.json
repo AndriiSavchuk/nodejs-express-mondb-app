@@ -1,0 +1,14 @@
+{
+  "name": "nodejs-express-mondb-app",
+  "version": "1.0.0",
+  "description": "nodejs+express+mongodb application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Andrii Savchuk",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
