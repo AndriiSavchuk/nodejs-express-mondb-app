@@ -11,8 +11,37 @@ app.set('view engine', 'pug');
 
 //Index Route
 app.get('/', (req, res) => {
+  let articles = [
+    {
+      id: 1,
+      title: 'Article One',
+      author: 'John Wayne',
+      body: 'This is article one'
+    },
+    {
+      id: 2,
+      title: 'Article Two',
+      author: 'Jane Doe',
+      body: 'This is article two'
+    },
+    {
+      id: 3,
+      title: 'Article Three',
+      author: 'Brad Pitt',
+      body: 'This is article three'
+    }
+  ];
+
   res.render('index', {
-    title: 'Hello World'
+    title: 'Articles',
+    articles: articles
+  });
+});
+
+//Add Route
+app.get('/articles/add', (req, res) => {
+  res.render('article', {
+    title: 'Articles'
   });
 });
 

@@ -1,6 +1,8 @@
-doctype html
-html
-  head
-    title NodeJS+Express+MongoDB
-  body
-    h1 #{title}
+extends layout
+
+block content
+  h1 #{title}
+  ul
+    each article, i in articles
+      li= article.title
+
