@@ -1,10 +1,19 @@
 const express = require('express');
+const path = require('path');
 
+//Init App
 const app = express();
+
+//Load View Engine
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 
 //Index Route
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.render('index', {
+    title: 'Hello World'
+  });
 });
 
 //Start Server Function
