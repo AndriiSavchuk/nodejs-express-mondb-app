@@ -1,5 +1,22 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
+
+//Connection to MongoDB
+mongoose.connect('mongodb://localhost/nodexpsdb', {
+  useMongoClient: true,
+});
+let db = mongoose.connection;
+
+//Check connection
+db.once('open', function(){
+  console.log('Connected to MongoDB');
+});
+
+//Check DB errors
+db.on('error', function(err) {
+  console.log
+});
 
 //Init App
 const app = express();
