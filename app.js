@@ -9,14 +9,12 @@ mongoose.connect('mongodb://localhost/nodexpsdb', {
 });
 let db = mongoose.connection;
 
+//Check DB errors
+db.on('error', console.error.bind(console, 'connection error'));
+
 //Check connection
 db.once('open', () => {
   console.log('Connected to MongoDB');
-});
-
-//Check DB errors
-db.on('error', (err) => {
-  console.log
 });
 
 //Init App
