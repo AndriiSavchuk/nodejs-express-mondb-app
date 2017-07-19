@@ -2,7 +2,14 @@ extends layout
 
 block content
   h1 #{title}
-  //- form(method="POST", action="/articles/add")
-  //-   #form-group
-  //-     label Title:
-  //-     input.form-contol(name="title", type="text")
+  form(method="POST", action="/articles/add")
+    #form-group
+      label Title:
+      input.form-contol(name="title", type="text")
+    #form-group
+      label Author:
+      input.form-contol(name="author", type="text")
+    #form-group
+      label Body:
+      textarea.form-contol(name="body")
+    input.btn.btn-primary(type='submit', value="Add Article")
