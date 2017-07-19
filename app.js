@@ -44,8 +44,8 @@ app.get('/', (req, res) => {
 
 //Add Route
 app.get('/articles/add', (req, res) => {
-  res.render('article', {
-    title: 'Articles'
+  res.render('add_article', {
+    title: 'Add Articles'
   });
 });
 
