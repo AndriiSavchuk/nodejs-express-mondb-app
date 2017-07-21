@@ -3,16 +3,16 @@ const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-//Connection to MongoDB
+// Connection to MongoDB
 mongoose.connect('mongodb://localhost/nodexpsdb', {
   useMongoClient: true,
 });
 let db = mongoose.connection;
 
-//Check DB errors
+// Check DB errors
 db.on('error', console.error.bind(console, 'connection error'));
 
-//Check connection
+// Check connection
 db.once('open', () => {
   console.log('Connected to MongoDB');
 });
@@ -35,11 +35,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // Setup Static Folder
 app.use(express.static(path.join(__dirname, 'static')));
 
-
 // Parse application/json
 app.use(bodyParser.json())
 
-//Index Route
+/* Application Routes */
+
+//Homepage Route
 app.get('/', (req, res) => {
   Article.find({}, (err, articles) => {
     if (err) {
@@ -50,6 +51,13 @@ app.get('/', (req, res) => {
         articles: articles
       });
     }
+  });
+});
+
+// Get Single Article
+app.get('/article/:id', (req, res) => {
+  Article.findById(req.params.id, (err, article) => {
+    res.render('article', {article}); // used destructuring
   });
 });
 
@@ -74,6 +82,16 @@ app.post('/articles/add', (req, res) => {
     } else {
       res.redirect('/');
     }
+  });
+});
+
+// Edit Article
+app.get('/article/edit/:id', (req, res) => {
+  Article.findById(req.params.id, (err, article) => {
+    res.render('edit_article', {
+      title: 'Edit Article',
+      article //used destructuring
+    });
   });
 });
 
