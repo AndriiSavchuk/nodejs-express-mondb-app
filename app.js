@@ -27,10 +27,14 @@ let Article = require('./models/article');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-/*Body Parser Middleware */
+/* Body Parser Middleware */
 
 // Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
+
+// Setup Static Folder
+app.use(express.static(path.join(__dirname, 'static')));
+
 
 // Parse application/json
 app.use(bodyParser.json())
