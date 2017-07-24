@@ -45,8 +45,7 @@ app.use(bodyParser.json())
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  saveUninitialized: true
 }))
 
 // Express Messages Middleware
@@ -55,7 +54,6 @@ app.use((req, res, next) => {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
-
 
 // Express Validator Middleware
 app.use(expressValidator({
@@ -117,6 +115,7 @@ app.post('/articles/add', (req, res) => {
       console.log(err);
       return;
     } else {
+      req.flash('success', 'Article Added');
       res.redirect('/');
     }
   });
@@ -146,6 +145,7 @@ app.post('/articles/edit/:id', (req, res) => {
       console.log(err);
       return;
     } else {
+      req.flash('success', 'Article Updated');
       res.redirect('/');
     }
   });
