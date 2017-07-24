@@ -17,13 +17,13 @@ db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-//Init App
+// Init App
 const app = express();
 
-//Bring in Models
+// Bring in Models
 let Article = require('./models/article');
 
-//Load View Engine
+// Load View Engine
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -40,7 +40,7 @@ app.use(bodyParser.json())
 
 /* Application Routes */
 
-//Homepage Route
+// Homepage Route
 app.get('/', (req, res) => {
   Article.find({}, (err, articles) => {
     if (err) {
@@ -61,7 +61,7 @@ app.get('/article/:id', (req, res) => {
   });
 });
 
-//Add Route
+// Add Route
 app.get('/articles/add', (req, res) => {
   res.render('add_article', {
     title: 'Add Articles'
@@ -92,6 +92,25 @@ app.get('/article/edit/:id', (req, res) => {
       title: 'Edit Article',
       article //used destructuring
     });
+  });
+});
+
+// Update Submit POST Route
+app.post('/articles/edit/:id', (req, res) => {
+  let article = {};
+  article.title = req.body.title;
+  article.author = req.body.author;
+  article.body = req.body.body;
+
+  let query = {_id:req.params.id};
+
+  Article.update(query, article, (err) => {
+    if (err) {
+      console.log(err);
+      return;
+    } else {
+      res.redirect('/');
+    }
   });
 });
 
