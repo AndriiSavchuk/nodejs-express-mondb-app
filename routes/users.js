@@ -9,4 +9,28 @@ router.get('/registration', (req, res) => {
   res.render('registration')
 });
 
+// Registration Functionality
+router.post('/registration', (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+  const username = req.body.email;
+  const password = req.body.password;
+  const password_cnf = req.body.password_cnf;
+
+  req.checkBody('Name', 'Name is required').notEmpty();
+  req.checkBody('email', 'Email is required').notEmpty();
+  req.checkBody('email', 'Email is not valid').isEmail();
+  req.checkBody('username', 'Username is required').notEmpty();
+  req.checkBody('password', 'Name is required').notEmpty();
+  req.checkBody('password_cnf', 'Password do not match').equals(req.body.password);
+
+  let errors = req.validationErrors();
+
+  if (errors) {
+    res.render('registration', {errors})
+  } else {
+    let newUser = new User({name, email, username, password}); // use ES6 destructuring syntax
+  }
+});
+
 module.exports = router;
