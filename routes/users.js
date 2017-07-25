@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
 
 // Bring in User Model
 let User = require('../models/user');
@@ -31,6 +32,26 @@ router.post('/registration', (req, res) => {
   } else {
     let newUser = new User({name, email, username, password}); // use ES6 destructuring syntax
   }
+
+  // Encrypting User Password. Redirect to Login page
+  bcrypt.getSalt(10, (err, salt) => {
+    bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (error) {
+        console.log(err);
+      }
+      newUser.password = hash;
+
+      newUser.save(err => {
+        if (error) {
+          console.log(err);
+          return;
+        } else {
+          req.flash('success', 'You are now registered. Please, log in');
+          req.redirect('/user/login');
+        }
+      });
+    });
+  });
 });
 
 module.exports = router;
