@@ -1,3 +1,4 @@
+/* Ajax request for deleting articles */
 $(document).ready(() => {
   $('.delete-article').on('click', event => {
     $target = $(event.target);
